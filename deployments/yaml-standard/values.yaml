@@ -1,0 +1,19 @@
+additionalArguments:
+  - "--entryPoints.web.address=:80"
+  - "--entryPoints.websecure.address=:443"
+  - "--certificatesresolvers.letsencrypt.acme.email=your-email@example.com"
+  - "--certificatesresolvers.letsencrypt.acme.storage=/data/acme.json"
+  - "--certificatesresolvers.letsencrypt.acme.httpChallenge.entrypoint=web"
+
+persistence:
+  enabled: true
+  existingClaim: acme-pvc
+  size: 1Gi
+  storageClass: ""
+  accessModes:
+    - ReadWriteOnce
+
+volumeMounts:
+  - name: acme
+    mountPath: "/data"
+    subPath: acme.json
